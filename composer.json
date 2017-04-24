@@ -1,0 +1,15 @@
+{
+    "name": "quafzi/magento-pdf-download",
+    "license": "OSL-3.0",
+    "type": "magento-module",
+    "description": "Download PDF documents",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "authors":[
+        {
+            "name":"Thomas Birke",
+            "email":"magento@netextreme.de"
+        }
+    ]
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Quafzi_PdfDownload>
+            <version>1.0.0</version>
+        </Quafzi_PdfDownload>
+    </modules>
+    <global>
+        <blocks>
+            <quafzi_pdfdownload>
+                <class>Quafzi_PdfDownload_Block</class>
+            </quafzi_pdfdownload>
+        </blocks>
+        <helpers>
+            <quafzi_pdfdownload>
+                <class>Quafzi_PdfDownload_Helper</class>
+            </quafzi_pdfdownload>
+        </helpers>
+        <models>
+            <quafzi_pdfdownload>
+                <class>Quafzi_PdfDownload_Model</class>
+            </quafzi_pdfdownload>
+        </models>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <quafzi_pdfdownload before="Mage_Adminhtml">Quafzi_PdfDownload</quafzi_pdfdownload>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Quafzi_PdfDownload>
+                    <files>
+                        <quafzi_pdfdownload>Quafzi_PdfDownload.csv</quafzi_pdfdownload>
+                    </files>
+                </Quafzi_PdfDownload>
+            </modules>
+        </translate>
+        <menu>
+            <report>
+                <children>
+                    <quafzi_pdfdownload translate="title" module="quafzi_pdfdownload">
+                        <title>PDF Download</title>
+                        <action>adminhtml/quafzi_pdfdownload/</action>
+                        <sort_order>250</sort_order>
+                    </quafzi_pdfdownload>
+                </children>
+            </report>
+        </menu>
+        <acl>
+            <resources>
+                <admin translate="title" module="quafzi_pdfdownload">
+                    <children>
+                        <report>
+                            <children>
+                                <quafzi_pdfdownload translate="title">
+                                    <title>PDF Download</title>
+                                    <sort_order>100</sort_order>
+                                </quafzi_pdfdownload>
+                            </children>
+                        </report>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>

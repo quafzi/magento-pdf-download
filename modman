@@ -1,0 +1,4 @@
+src/app/code/community/Quafzi/PdfDownload     app/code/community/Quafzi/PdfDownload
+src/app/etc/modules/*    app/etc/modules/
+src/app/locale/de_DE/*    app/locale/de_DE/
+src/shell/* shell/
