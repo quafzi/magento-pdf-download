@@ -8,9 +8,9 @@
 if (file_exists(dirname(__FILE__) . '/abstract.php')) {
     // if this file is no symlink
     require_once dirname(__FILE__) . '/abstract.php';
-} elseif (file_exists(dirname(__FILE__) . '/../../../../shell/abstract.php')) {
+} elseif (file_exists(dirname(__FILE__) . '/../../../../../shell/abstract.php')) {
     // if this file is a symlinked pointing to ../composer/quafzi/magento-address-validation/src/shell/fix-customer-data.php
-    require_once dirname(__FILE__) . '/../../../../shell/abstract.php';
+    require_once dirname(__FILE__) . '/../../../../../shell/abstract.php';
 } elseif (file_exists(dirname(__FILE__) . '/../../../shell/abstract.php')) {
     // if this file is a symlinked pointing to ../.modman/…/src/shell/fix-customer-data.php
     require_once dirname(__FILE__) . '/../../../shell/abstract.php';
@@ -26,6 +26,15 @@ if (file_exists(dirname(__FILE__) . '/abstract.php')) {
 class Mage_Shell_ExportInvoices extends Mage_Shell_Abstract
 {
     protected $_includeMage = true;
+
+    protected function createFolder($path)
+    {
+        if (!is_dir($path)) {
+            $parentPath = dirname($path);
+            $this->createFolder($parentPath);
+            mkdir($path);
+        }
+    }
 
     /**
      * Run script
@@ -56,7 +65,10 @@ class Mage_Shell_ExportInvoices extends Mage_Shell_Abstract
                 echo "\r" . $progress . '/' . count($docIds);
                 $doc = Mage::getModel('sales/order_' . $docType)->load($docId);
                 $pdf = Mage::getModel('sales/order_pdf_' . $docType)->getPdf(array($doc));
-                $filename = $varDir . DS . $docType . '-' . $doc->getIncrementId() . '.pdf';
+                $createdAt = current(explode(' ', $doc->getCreatedAt()));
+                $folder = $varDir . DS . $doc->getStore()->getCode() . DS . str_replace('-', DS, $createdAt);
+                $this->createFolder($folder);
+                $filename = $folder . DS . $createdAt . '-' . $docType . '-' . $doc->getIncrementId() . '.pdf';
                 $pdf->save($filename);
                 Mage::getConfig()->saveConfig($configPath, $docId, 'default', 0);
             }

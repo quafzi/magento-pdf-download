@@ -26,32 +26,44 @@ class Quafzi_PdfDownload_Block_Form
             'name'     => 'store',
             'required' => true,
             'label'    => $helper->__('Store'),
-            'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true)
+            'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, false)
         ));
 
-        $fieldset->addField('dateFrom', 'date', array(
-            'name'     => 'dateFrom',
+        $fieldset->addField('year', 'select', array(
+            'name'     => 'year',
             'required' => true,
-            'label'    => $helper->__('Date From:'),
-            'title'    => $helper->__('Date From:'),
-            'note'     => $helper->__('Time starting at 0:00:00 o\'clock'),
-            'image'    => Mage::getBaseUrl(
-                Mage_Core_Model_Store::URL_TYPE_SKIN)
-                . '/adminhtml/default/default/images/grid-cal.gif',
-            'format'   => Mage::app()->getLocale()
-                ->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),
+            'label'    => $helper->__('Year:'),
+            'title'    => $helper->__('Year:'),
+            'values'   => array_combine(
+                range(2014, date('Y')),
+                range(2014, date('Y'))
+            )
         ));
 
-        $fieldset->addField('dateTo', 'date', array(
-            'name'     => 'dateTo',
-            'label'    => $helper->__('Date To:'),
-            'title'    => $helper->__('Date To:'),
-            'note'     => $helper->__('Time ending at 23:59:59 o\'clock. If no date is given, end date will be the current date.'),
-            'image'    => Mage::getBaseUrl(
-                Mage_Core_Model_Store::URL_TYPE_SKIN)
-                . '/adminhtml/default/default/images/grid-cal.gif',
-            'format'   => Mage::app()->getLocale()
-                ->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),
+        $fieldset->addField('month', 'select', array(
+            'name'     => 'month',
+            'required' => true,
+            'label'    => $helper->__('Month:'),
+            'title'    => $helper->__('Month:'),
+            'values'   => [
+                '1' => '1',
+                '2' => '2',
+                '3' => '3',
+                '4' => '4',
+                '5' => '5',
+                '6' => '6',
+                '7' => '7',
+                '8' => '8',
+                '9' => '9',
+                '10' => '10',
+                '11' => '11',
+                '12' => '12',
+                'q1' => $helper->__('Quarter 1'),
+                'q2' => $helper->__('Quarter 2'),
+                'q3' => $helper->__('Quarter 3'),
+                'q4' => $helper->__('Quarter 4'),
+                'year' => $helper->__('whole year')
+            ]
         ));
 
         $form->setAction($this->getUrl('*/quafzi_pdfdownload/download'));
